@@ -1,0 +1,21 @@
+=form_for Profile.new do |f|
+  = text_field_tag :post_id, 526085694165129, placeholder: 'id Поста'
+  = text_field_tag :limit, 20
+  = f.submit
+%hr
+= link_to 'Удалить все непроверенные', destoy_unmarked_profiles_path
+%hr
+%table
+  - @profiles.each do |profile|
+    %tr
+      %td.profile_name      
+        =link_to profile.name, profile.link
+      %td.profile_form
+        = form_for profile, remote: true do |f|
+          = f.label :ph_manual, "Призолов", :value => "true"
+          = f.radio_button :ph_manual, true
+          = f.label :ph_manual, "Нормальный", :value => "false"
+          = f.radio_button :ph_manual, false
+          = f.label :ph_manual, "?", :value => nil
+          = f.radio_button :ph_manual, nil
+

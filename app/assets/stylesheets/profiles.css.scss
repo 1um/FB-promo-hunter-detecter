@@ -1,0 +1,19 @@
+// Place all the styles related to the Profiles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.bw_val, .percentage input{
+  width: 30px;  
+}
+.bw{
+  display: block;
+}
+.form_wrapper{
+  position: absolute;
+  right: 0px;
+}
+
+td.ph{
+  background-color: black;
+  color: white;
+}

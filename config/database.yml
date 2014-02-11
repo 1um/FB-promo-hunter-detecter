@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: true
+  database: profiles
+  pool: 15
+  username: raz
+  password: 123
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: true
+  database: profiels
+  pool: 15
+  username: raz
+  password: 123

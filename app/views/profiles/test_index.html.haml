@@ -1,0 +1,28 @@
+.form_wrapper
+  =form_tag update_test_profiles_path(),remote:true do 
+    = label_tag 'Процент призолова'
+    %br
+    = text_field_tag :ph_post_percent, @ph_post_percent
+    %hr
+    - @bw.each do |key,val|
+      .bw
+        = text_field_tag 'bw['+key+']',val,class:'bw_val'
+        = label_tag 'bw['+key+']',key
+    %hr
+    = button_tag 'Обновить константы'
+= label_tag :auto_click, 'Авто клик'
+= check_box_tag :auto_click, false
+%table.profiles  
+  - @profiles.each do |profile|
+    %tr
+      -if profile.ph_manual
+        %td.ph
+          !
+      - else
+        %td.ok                
+      %td.profile_name      
+        =link_to profile.name, profile.link
+      %td.profile_button
+        =button_to 'Проверить',test_profile_path(profile), :remote=>true, class: 'check_one'
+      %td.percentage
+        =text_field_tag 'per', profile.ph_percent, style:"background-color:#{profile.right? ? 'green' : 'red' }"

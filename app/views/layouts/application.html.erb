@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FbUserChecker</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= link_to 'Профили', profiles_path %>
+<%= link_to 'Тестирование', test_index_profiles_path %>
+<%= Profile.right_percent %>%
+<%= yield %>
+
+</body>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+</html>
