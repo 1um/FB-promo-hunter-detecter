@@ -1,0 +1,25 @@
+=link_to @profile.name, @profile.link
+%table.posts
+  %tr{:rowspan=>2}
+    %td
+      Нераспознано: 
+      = @unrecognized.count
+      (
+      - @unrecognized.each_with_index do |(k,v),i|
+        = link_to i+1, v[:link]
+      )
+
+  %tr
+    %td
+      %h3
+        Призоловские
+    %td
+      %h3
+        Обычные
+  %tr
+    %td
+      - @promo_posts.each do |id,post|
+        = render partial: 'post', :locals => { post: post }
+    %td
+      - @usual_posts.each do |id,post|
+        = render partial: 'post', :locals => { post: post }

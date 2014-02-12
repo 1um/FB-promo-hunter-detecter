@@ -1,7 +1,7 @@
 FbUserChecker::Application.routes.draw do
   root 'profiles#index'
 
-  resources :profiles, only:[:index,:create,:update] do
+  resources :profiles, only:[:index,:create,:update, :show] do
     collection do
       get 'test_index'      
       post 'update_test'

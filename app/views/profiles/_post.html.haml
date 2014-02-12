@@ -1,0 +1,10 @@
+.post
+  = link_to 'Открыть', post[:link]
+  = link_to "Change", '#', class: "change_link"
+  = post[:rate]
+  .original.tab
+    = post[:text]
+  .stemmed.tab.nodisp
+    = post[:stemmed]
+
+  %hr

@@ -21,3 +21,10 @@ $('.button_to').on 'ajax:success', (e, data, status, xhr)->
     $(this).parents('tr').next().find('input:submit').trigger('click')
 $('#auto_click').on 'change', (e)->
   click_next = $(this).is(":checked")  
+
+$(".change_link").on 'click', ()->
+  nodisp = $(this).parents(".post").find(".tab.nodisp")
+  $(this).parents(".post").find(".tab").addClass('nodisp')
+  nodisp.removeClass('nodisp')
+  false
+  

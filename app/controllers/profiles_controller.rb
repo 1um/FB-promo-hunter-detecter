@@ -3,6 +3,15 @@ class ProfilesController < ApplicationController
     @profiles = Profile.all.order(:created_at)
   end
 
+  def show
+    @profile = Profile.find(params[:id])
+    @profile.retest!
+    group_posts = @profile.posts.group_by{|k,v| v[:rate] ? v[:rate]>=1 : nil }
+    @unrecognized = group_posts[nil] || [] 
+    @promo_posts = group_posts[true] || []
+    @usual_posts = group_posts[false] || []
+  end
+
   def create    
     post = FbGraph::Post.fetch(params[:post_id],:access_token => Profile.token)
     likers = post.likes(limit:params[:limit].to_i)

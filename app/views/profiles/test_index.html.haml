@@ -26,3 +26,5 @@
         =button_to 'Проверить',test_profile_path(profile), :remote=>true, class: 'check_one'
       %td.percentage
         =text_field_tag 'per', profile.ph_percent, style:"background-color:#{profile.right? ? 'green' : 'red' }"
+      %td.type
+        = link_to profile.type, profile_path(profile)
