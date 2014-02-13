@@ -19,7 +19,7 @@ class Profile < ActiveRecord::Base
       self.posts = {}
       bad_post_counter = 0
       feed.each do |post|         
-        text = post.caption
+        text = post.caption || post.description || post.story
         if text    
           clean_text = text.gsub(/[^a-zA-Zа-яА-Я’їієґЇІЄҐ]/,' ')
           clean_text = UnicodeUtils.downcase( clean_text ) 
