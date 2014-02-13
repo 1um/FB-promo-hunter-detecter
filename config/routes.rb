@@ -6,6 +6,7 @@ FbUserChecker::Application.routes.draw do
       get 'test_index'      
       post 'update_test'
       get 'destoy_unmarked'
+      post 'retest_each'
     end
     post 'test', on: :member
   end

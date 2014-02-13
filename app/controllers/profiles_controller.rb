@@ -53,4 +53,9 @@ class ProfilesController < ApplicationController
     Profile.where(ph_manual:nil).destroy_all
     redirect_to profiles_path
   end
+
+  def retest_each
+    Profile.checked.each(&:retest!)
+    redirect_to test_index_profiles_path
+  end
 end
