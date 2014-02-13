@@ -45,7 +45,7 @@ class Profile < ActiveRecord::Base
   end
 
   def type
-    self.ph_percent >= TestConstants.ph_post_percent ? "Призолов" : "Обычный"
+    self.ph_percent||0 >= TestConstants.ph_post_percent ? "Призолов" : "Обычный"
   end
   def self.right_percent
     per = Profile.checked.where(right:true).count.to_f/Profile.checked.count.to_f
