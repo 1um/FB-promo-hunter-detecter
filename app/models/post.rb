@@ -42,7 +42,9 @@ class Post < ActiveRecord::Base
     self.rate >= 1
   end
 
-  def self.create_or_find_same params
+  def self.create_or_find_same_from_fb_post fb_post
+    text = fb_post.caption || fb_post.description || fb_post.message || fb_post.story 
+    params = {text: text, link: fb_post.link, pid: fb_post.identifier}
     same_post = Post.where(link: params[:link], text: params[:text]).first
     post = same_post || Post.create(params)
   end
@@ -52,6 +54,13 @@ class Post < ActiveRecord::Base
     per = (per*100).round(1)
   end
 
+  def self.donwload_from_fb id, limit
+    object = FbGraph::User.fetch(id, access_token: Profile.token)
+    fb_posts = object.posts(limit: limit)
+    fb_posts.each do |fb_post|
+      self.create_or_find_same_from_fb_post(fb_post)
+    end    
+  end
   private
   def check_link_lenght    
     self.link = self.link.first(255) if self.link?

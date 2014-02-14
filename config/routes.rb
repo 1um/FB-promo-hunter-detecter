@@ -11,7 +11,7 @@ FbUserChecker::Application.routes.draw do
     post 'test', on: :member
   end
 
-  resources :posts, only:[:index] do
+  resources :posts, only:[:index, :create] do
     post 'manual_type', on: :member
     post 'recalc_rate_all', on: :collection
   end

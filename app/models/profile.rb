@@ -17,9 +17,8 @@ class Profile < ActiveRecord::Base
 
     posts = user_object.posts  
 
-    posts.each do |fb_post|
-      text = fb_post.caption || fb_post.description || fb_post.message || fb_post.story 
-      post = Post.create_or_find_same(text: text, link: fb_post.link, pid: fb_post.identifier)
+    posts.each do |fb_post|      
+      post = Post.create_or_find_same_from_fb_post( fb_post )
       self.posts<<post
     end
     bad_post_counter = self.posts.auto.promo.count

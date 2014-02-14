@@ -22,4 +22,9 @@ class PostsController < ApplicationController
     redirect_to action: 'index'
   end
 
+  def create
+    Post.donwload_from_fb(params[:id], params[:limit])
+    redirect_to action: 'index'
+  end
+
 end

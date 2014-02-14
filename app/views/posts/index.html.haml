@@ -1,10 +1,15 @@
+=form_for Post.new do |f|
+  = text_field_tag :id, 'dolcegustoua', placeholder: 'id'
+  = text_field_tag :limit, 20
+  = f.submit
+%hr
 .inline_button
   = button_to 'Перетестировать', recalc_rate_all_posts_path
 - if params[:manual]
   =link_to "Авто", posts_path 
--else 
+-else
   =link_to "Не верные!", posts_path(manual:true)
-
+%hr
 %table.posts
   %tr
     %td
