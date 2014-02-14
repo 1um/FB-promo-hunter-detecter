@@ -8,7 +8,10 @@
 <body>
 <%= link_to 'Профили', profiles_path %>
 <%= link_to 'Тестирование', test_index_profiles_path %>
-<%= Profile.right_percent %>%
+<%= link_to 'Посты', posts_path %>
+<%= Post.manual_percent %>%
+<hr>
+
 <%= yield %>
 
 </body>

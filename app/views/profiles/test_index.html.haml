@@ -9,7 +9,7 @@
         = text_field_tag 'bw['+key+']',val,class:'bw_val'
         = label_tag 'bw['+key+']',key
     %hr
-    = button_tag 'Обновить константы'
+    = button_tag 'Обновить константы', disabled:true
 = label_tag :auto_click, 'Авто клик'
 = check_box_tag :auto_click, false
 = button_to 'Обновить все', retest_each_profiles_path

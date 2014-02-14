@@ -1,0 +1,11 @@
+.post
+  = link_to 'Ссылка', post.link if post.link    
+  = post.rate
+  .manual_type.inline_button
+    - if post.manual_check.nil?
+      = button_to 'Не верно', manual_type_post_path( post, type: !post.promo? ), remote: true
+    - else
+      = button_to 'Ой, верните', manual_type_post_path( post, type: nil ), remote: true
+  .original
+    = post.text
+  %hr

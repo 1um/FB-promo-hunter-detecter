@@ -10,6 +10,11 @@ FbUserChecker::Application.routes.draw do
     end
     post 'test', on: :member
   end
+
+  resources :posts, only:[:index] do
+    post 'manual_type', on: :member
+    post 'recalc_rate_all', on: :collection
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

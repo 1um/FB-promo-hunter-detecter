@@ -5,11 +5,9 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-    @profile.retest!
-    group_posts = @profile.posts.group_by{|k,v| v[:rate] ? v[:rate]>=1 : nil }
-    @unrecognized = group_posts[nil] || [] 
-    @promo_posts = group_posts[true] || []
-    @usual_posts = group_posts[false] || []
+    @profile.retest! if params[:retest]
+    @promo_posts = @profile.posts.promo
+    @usual_posts = @profile.posts.usual
   end
 
   def create    

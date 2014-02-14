@@ -1,0 +1,17 @@
+.inline_button
+  = button_to 'Перетестировать', recalc_rate_all_posts_path
+- if params[:manual]
+  =link_to "Авто", posts_path 
+-else 
+  =link_to "Не верные!", posts_path(manual:true)
+
+%table.posts
+  %tr
+    %td
+      - @promo_posts.each do |post|
+        = render post        
+        
+    %td
+      - @usual_posts.each do |post|
+        = render post        
+        
