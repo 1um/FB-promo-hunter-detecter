@@ -45,7 +45,7 @@ class Post < ActiveRecord::Base
   def self.create_or_find_same_from_fb_post fb_post
     text = fb_post.caption || fb_post.description || fb_post.message || fb_post.story 
     params = {text: text, link: fb_post.link, pid: fb_post.identifier}
-    same_post = Post.where(link: params[:link], text: params[:text]).first
+    same_post = Post.where(text: params[:text]).first
     post = same_post || Post.create(params)
   end
 
