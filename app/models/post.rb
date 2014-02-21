@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
 
   def fetch!
     fb_post = FbGraph::Post.fetch(self.pid,:access_token => Profile.token)
-    self.text = fb_post.caption || fb_post.description || fb_post.message || fb_post.story 
+    self.text = fb_post.caption || fb_post.description || fb_post.message
     self.link = fb_post.link
     self.save
   end
