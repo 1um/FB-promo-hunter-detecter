@@ -19,7 +19,7 @@ class Profile < ActiveRecord::Base
 
     posts.each do |fb_post|      
       post = Post.create_or_find_same_from_fb_post( fb_post )
-      self.posts<<post
+      self.posts<<post if post
     end
     bad_post_counter = self.posts.auto.promo.count
     if self.posts.any?

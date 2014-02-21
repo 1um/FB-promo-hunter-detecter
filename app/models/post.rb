@@ -10,10 +10,14 @@ class Post < ActiveRecord::Base
   validates :pid, :uniqueness => true
   before_save :check_link_lenght, :check_rate
 
-  def fetch!
-    fb_post = FbGraph::Post.fetch(self.pid,:access_token => Profile.token)
+  def fetch (fb_post)
+    fb_post ||= FbGraph::Post.fetch(self.pid,:access_token => Profile.token)
     self.text = fb_post.caption || fb_post.description || fb_post.message
-    self.link = fb_post.link
+    self.link = fb_post.link    
+  end
+
+  def fetch!
+    self.fetch
     self.save
   end
 
@@ -43,10 +47,21 @@ class Post < ActiveRecord::Base
   end
 
   def self.create_or_find_same_from_fb_post fb_post
-    text = fb_post.caption || fb_post.description || fb_post.message || fb_post.story 
-    params = {text: text, link: fb_post.link, pid: fb_post.identifier}
-    same_post = Post.where(text: params[:text]).first
-    post = same_post || Post.create(params)
+    post = Post.new(pid: fb_post.identifier)
+    post.fetch fb_post
+    
+    if(post.text)
+      same_post = Post.where(text: post.text).first
+      if same_post
+        post = same_post 
+      else
+        post.save
+      end
+      return post
+    else
+      return nil
+    end
+
   end
 
   def self.manual_percent
