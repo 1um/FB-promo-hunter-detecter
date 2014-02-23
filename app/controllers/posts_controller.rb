@@ -27,4 +27,23 @@ class PostsController < ApplicationController
     redirect_to action: 'index'
   end
 
+  def likers
+    @post = Post.find(params[:id])
+    @profiles = @post.profiles.order(:created_at)    
+  end
+
+  def add_likers
+    @post = Post.find(params[:id])
+    @post.upload_likers(params[:count].to_i)
+    redirect_to action: 'likers'
+  end
+
+  def destroy
+    Post.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to :back  }
+      format.js {render nothing: true}
+    end
+  end
+
 end

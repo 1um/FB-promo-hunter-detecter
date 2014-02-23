@@ -1,0 +1,8 @@
+%td.profile_form
+  = form_for profile, remote: true do |f|
+    = f.label :ph_manual, "Призолов", :value => "true"
+    = f.radio_button :ph_manual, true
+    = f.label :ph_manual, "Нормальный", :value => "false"
+    = f.radio_button :ph_manual, false
+    = f.label :ph_manual, "?", :value => nil
+    = f.radio_button :ph_manual, nil

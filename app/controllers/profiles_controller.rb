@@ -11,13 +11,11 @@ class ProfilesController < ApplicationController
   end
 
   def create    
-    post = FbGraph::Post.fetch(params[:post_id],:access_token => Profile.token)
-    likers = post.likes(limit:params[:limit].to_i)
-    likers.each do |user|
-      Profile.create(uid: user.identifier, name:user.name)      
-    end
+    fb_post = FbGraph::Post.fetch(params[:post_id],:access_token => Profile.token)    
+    post = Post.create_or_find_same_from_fb_post fb_post
+    post.upload_likers(params[:limit].to_i, fb_post)
     redirect_to profiles_path
-  end
+  end  
 
   def update
     profile = Profile.find(params[:id])
@@ -25,11 +23,14 @@ class ProfilesController < ApplicationController
     profile_params[:ph_manual] = nil if profile_params[:ph_manual]=='on'
     profile.update(profile_params)
     profile.save
-    redirect_to profiles_path
+    respond_to do |format|
+      format.html { redirect_to action: 'index' }
+      format.js {render nothing: true}
+    end
   end
 
   def test_index
-    @profiles = Profile.checked.order(:created_at)
+    @profiles = Profile.order(:created_at)
     @bw = TestConstants.bad_words
     @ph_post_percent = TestConstants.ph_post_percent
   end
@@ -37,7 +38,7 @@ class ProfilesController < ApplicationController
   def test
     profile = Profile.find(params[:id])
     profile.retest!
-    render json: {percent:profile.ph_percent, right:profile.right}
+    render json: {percent:profile.ph_percent, right:profile.right, color: profile.color, type: profile.type}
   end
 
   def update_test

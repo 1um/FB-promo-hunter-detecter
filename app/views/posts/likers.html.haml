@@ -1,0 +1,19 @@
+.post
+  = render @post
+.stat
+  = @post.profiles.promo_hunters.count 
+  = "/"
+  = @post.profiles.tested.count
+%hr
+= form_tag add_likers_post_path(@post) do 
+  = label_tag :count, 'Количество'
+  = text_field_tag :count  
+  = submit_tag 'Добавить еще'
+%hr
+= label_tag :auto_click, 'Авто клик'
+= check_box_tag :auto_click, false
+%table.profiles  
+  - @profiles.each do |profile|
+    %tr
+      = render profile
+      = render partial:'profiles/form', locals:{profile: profile}

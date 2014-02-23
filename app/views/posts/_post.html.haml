@@ -1,6 +1,12 @@
 .post
-  = link_to 'Ссылка', post.link if post.link    
-  = post.rate
+  .destroy.inline_button
+    = button_to 'Удалить', post_path(post), method: :delete , confirmation: 'Точно удалиить?', remote: true
+  |
+  = link_to 'Лайкующие', likers_post_path(post) 
+  |
+  = link_to 'Оригинал', post.link if post.link 
+  |  
+  = post.rate  
   .manual_type.inline_button
     - if post.manual_check.nil?
       = button_to 'Не верно', manual_type_post_path( post, type: !post.promo? ), remote: true

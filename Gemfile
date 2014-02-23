@@ -37,6 +37,7 @@ end
 
 group :development do
   gem 'pry'
+  gem 'pry-nav'
 end
 
 # Use ActiveModel has_secure_password
